@@ -66,8 +66,19 @@ gem 'rb-readline'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'haml-rails'
+
+# image uploader
+gem 'carrierwave'
+gem 'mini_magick'
+gem 'fog-aws'
 gem 'erb2haml'
 gem "font-awesome-rails"
 
 #font-awsome5対応
 gem 'font-awesome-sass'
+gem "i18n", "1.5.3"
+gem 'devise'
+gem 'enum_help'
+gem 'rails-i18n'
+gem 'payjp'
+gem 'gretel'

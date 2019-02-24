@@ -1,0 +1,67 @@
+- if @user.errors.any?
+  = render 'layouts/notifications'
+.mypage-header
+  = render "products/product_header"
+  - breadcrumb :identification, current_user.id
+  = render "layouts/bread_with_gretel"
+%main.l-container
+  .l-content
+    %section.l-content__l-chapter
+      %h2.l-content__l-chapter__head 本人情報の登録
+      %p.l-content__l-chapter__head__center お客さまのあんしん・あんぜんな取引のため、本人情報のご登録をお願いしております。
+
+      = form_for @user, url: {action: 'update'}, html: { class: 'l-content__l-chapter__head__center__l-single-inner'} do |f|
+        .l-content__l-chapter__head__center__l-single-inner__form-group
+          = f.label :first_name, "お名前", class: "l-content__l-chapter__head__center__l-single-inner__form-group__label"
+          %span.l-content__l-chapter__head__center__l-single-inner__form-group__form-require 必須
+          = f.text_field :first_name, class: 'l-content__l-chapter__head__center__l-single-inner__form-group__input-default', placeholder: "例）山田"
+          = f.text_field :last_name, class: 'l-content__l-chapter__head__center__l-single-inner__form-group__input-default', placeholder: "例）彩"
+        .l-content__l-chapter__head__center__l-single-inner__form-group
+          = f.label :first_name_kana, "お名前カナ", class: "l-content__l-chapter__head__center__l-single-inner__form-group__label"
+          %span.l-content__l-chapter__head__center__l-single-inner__form-group__form-require 必須
+          = f.text_field :first_name_kana, class: 'l-content__l-chapter__head__center__l-single-inner__form-group__input-default', placeholder: "例）彩"
+          = f.text_field :last_name_kana, class: 'l-content__l-chapter__head__center__l-single-inner__form-group__input-default', placeholder: "例）アヤ"
+        .l-content__l-chapter__head__center__l-single-inner__form-group
+          = f.label :zip_code, "郵便番号", class: "l-content__l-chapter__head__center__l-single-inner__form-group__label"
+          %span.l-content__l-chapter__head__center__l-single-inner__form-group__form-arbitrary 任意
+          = f.text_field :postal_code, class: 'l-content__l-chapter__head__center__l-single-inner__form-group__input-default', placeholder: "例）1234567"
+        .l-content__l-chapter__head__center__l-single-inner__form-group
+          = f.label :prefecture, "都道府県", class: "l-content__l-chapter__head__center__l-single-inner__form-group__label"
+          %span.l-content__l-chapter__head__center__l-single-inner__form-group__form-require 必須
+          .l-content__l-chapter__head__center__l-single-inner__form-group__select-wrap
+            = f.select :prefecture, User.prefectures.keys.map {|k| [I18n.t("enums.user.prefecture.#{k}"), k]}, {}, {class: "l-content__l-chapter__head__center__l-single-inner__form-group__select-wrap__select-default"}
+            %i.l-content__l-chapter__head__center__l-single-inner__form-group__icon-arrow-bottom.fa.fa-angle-down
+        .l-content__l-chapter__head__center__l-single-inner__form-group
+          = f.label :cities, "市区町村", class: "l-content__l-chapter__head__center__l-single-inner__form-group__label"
+          %span.l-content__l-chapter__head__center__l-single-inner__form-group__form-require 必須
+          = f.text_field :cities, class: 'l-content__l-chapter__head__center__l-single-inner__form-group__input-default', placeholder: "例) 横浜市緑区"
+        .l-content__l-chapter__head__center__l-single-inner__form-group
+          = f.label :address, "番地", class: "l-content__l-chapter__head__center__l-single-inner__form-group__label"
+          %span.l-content__l-chapter__head__center__l-single-inner__form-group__form-require 必須
+          = f.text_field :address, class: 'l-content__l-chapter__head__center__l-single-inner__form-group__input-default', placeholder: "例) 青山1−1−1"
+        .l-content__l-chapter__head__center__l-single-inner__form-group
+          = f.label :building_name, "建物名", class: "l-content__l-chapter__head__center__l-single-inner__form-group__label"
+          %span.l-content__l-chapter__head__center__l-single-inner__form-group__form-arbitrary 任意
+          = f.text_field :building_name, class: 'l-content__l-chapter__head__center__l-single-inner__form-group__input-default', placeholder: "例) 柳ビル103"
+        .l-content__l-chapter__head__center__l-single-inner__form-group
+          = f.label :birthday, "生年月日", class: "l-content__l-chapter__head__center__l-single-inner__form-group__label"
+          %span.l-content__l-chapter__head__center__l-single-inner__form-group__form-require 必須
+          %br/
+          .l-content__l-chapter__head__center__l-single-inner__form-group__birthday-select-wrap
+            .l-content__l-chapter__head__center__l-single-inner__form-group__select-wrap.l-content__l-chapter__head__center__l-single-inner__form-group__birthday-select-wrap__select-wrap
+              = raw sprintf(f.date_select(:birthday, {use_month_numbers: true, start_year: 1900, end_year: (Time.now.year), default: Date.new(1989, 1, 1, ),date_separator: '%s'}, {class: "l-content__l-chapter__head__center__l-single-inner__form-group__birthday-select-wrap__select-wrap__select-default"}), '年 ', '月 ') + '日'
+              %i.l-content__l-chapter__head__center__l-single-inner__form-group__icon-arrow-bottom.first.fa.fa-angle-down
+              %i.l-content__l-chapter__head__center__l-single-inner__form-group__icon-arrow-bottom.second.fa.fa-angle-down
+              %i.l-content__l-chapter__head__center__l-single-inner__form-group__icon-arrow-bottom.third.fa.fa-angle-down
+          %p.l-content__l-chapter__head__center__l-single-inner__form-group__form-info-text
+            ※出品されたことがある、本人情報未登録のお客さまもご対象となります。
+        = f.submit "登録する",class: "l-content__l-chapter__head__center__l-single-inner__btn-default"
+        .l-content__l-chapter__head__center__l-single-inner__form-group.text-right
+          %p.l-content__l-chapter__head__center__l-single-inner__form-group__text
+            %a.l-content__l-chapter__head__center__l-single-inner__form-group__text__link{href: "#", target: "_self"}
+              本人情報の登録について
+              %i.l-content__l-chapter__head__center__l-single-inner__form-group__text__link__icon-arrow-right.fa.fa-angle-right
+  .mypage-side
+    = render "users/mypage-nav"
+.mypage-footer
+  = render "products/product_footer"

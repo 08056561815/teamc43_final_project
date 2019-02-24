@@ -1,0 +1,5 @@
+.registrations__wrapper
+  = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+    = render "registrations-header"
+    = render "registrations-main__member-info",f:f
+    = render "registrations-footer"
